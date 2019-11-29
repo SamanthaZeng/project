@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <navbar-proj></navbar-proj>
+    <div style = "padding: 20px">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
+  import navbar from '@/components/navbar';
+  export default {
+    name: 'App',
+    components:{
+        'navbar-proj':navbar
+    }
 }
 </script>
 
