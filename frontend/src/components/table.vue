@@ -1,6 +1,7 @@
 <template>
   <div>
-      <el-table :data = "crimerecords"
+    <el-input placeholder="filter all the data in the table" prefix-icon="el-icon-search" v-model="search"></el-input>
+      <el-table :data = "crimes"
                 stripe
                 :default-sort = "{prop: 'dayofweek', order: 'descending'}"
                 style="width: 100%">
@@ -110,7 +111,8 @@
                 total: 10,
                 currentPage:1,
                 pageSize:10,
-                crimerecords:[]
+                crimerecords:[],
+                search: ''
             }
         },
         methods: {
@@ -160,11 +162,26 @@
                     this.crimerecords.push(data)
                 })
             })
+        },
+        computed: {
+            // 模糊搜索
+            crimes () {
+                const search = this.search
+                if (search) {
+                    console.log('this.crimerecords', this.crimerecords)
+                    return this.crimerecords.filter(data => {
+                        return Object.keys(data).some(key => {
+                      return String(data[key]).toLowerCase().indexOf(search) > -1
+                  })
+              })
+          }
+           console.log('this.crimerecords', this.crimerecords)
+          return this.crimerecords
+      }
         }
     }
 </script>
 
 <style scoped>
   @import './css/style.css';
-
 </style>

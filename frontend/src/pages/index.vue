@@ -1,5 +1,15 @@
 <template>
+  <div class="border">
+    <div class="header">
+      <div class="left">
+        <div class="content">
+          <font-awesome-icon style="color:#888888" :icon = "['fas','table']"/>
+          <i> Crime in Boston</i>
+        </div>
+      </div>
+    </div>
     <table-proj></table-proj>
+  </div>
 </template>
 
 <script>
@@ -13,5 +23,5 @@
 </script>
 
 <style scoped>
-
+  @import '../components/css/style.css';
 </style>
