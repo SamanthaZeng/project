@@ -18,7 +18,9 @@
     "element-ui": "^2.12.0",
     "firebase": "^7.2.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-trend-chart": "^0.15.1",
+    "vuetrend": "^0.3.4"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",

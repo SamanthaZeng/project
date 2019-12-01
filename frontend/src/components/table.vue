@@ -1,6 +1,8 @@
 <template>
   <div>
     <el-input placeholder="filter all the data in the table" prefix-icon="el-icon-search" v-model="search"></el-input>
+    <i style="float:left;">hour filter</i>
+    <el-slider v-model="value1" range show-stops :max="23" @change="carouselChange"></el-slider>
       <el-table :data = "crimes"
                 stripe
                 :default-sort = "{prop: 'dayofweek', order: 'descending'}"
@@ -25,6 +27,7 @@
           prop="hour"
           label="HOUR"
           sortable
+          :sort-method = "sortByHour"
           width="180">
         </el-table-column>
         <el-table-column
@@ -55,6 +58,8 @@
         <el-table-column
           prop="offcode"
           label="OFFENSE_CODE"
+          sortable
+          :sort-method = "sortByHour"
           width="180">
         </el-table-column>
         <el-table-column
@@ -108,11 +113,15 @@
         name: "table",
         data() {
             return {
-                total: 10,
+                total: 64000,
                 currentPage:1,
                 pageSize:10,
                 crimerecords:[],
-                search: ''
+                temp: [],
+                pageList:[],
+                flag: 0,
+                search: '',
+                value1: [0, 23]
             }
         },
         methods: {
@@ -123,22 +132,43 @@
             handleCurrentChange: function (currentPage) {//页码切换
                 this.currentPage = currentPage
                 this.currentChangePage(this.crimerecords, currentPage)
-
             },
             //分页方法（重点）
             currentChangePage(list, currentPage) {
+                console.log("currentPage",currentPage)
                 let from = (currentPage - 1) * this.pageSize;
                 let to = currentPage * this.pageSize;
-                this.tempList = [];
+                this.pageList = [];
                 for (; from < to; from++) {
                     if (list[from]) {
-                        this.tempList.push(list[from]);
+                        this.pageList.push(list[from]);
                     }
                 }
+                this.flag = 0
+            },
+            carouselChange: function(key1) {
+                console.log(key1);
+                let crime
+                crime = this.pageList.filter(data => {
+                    let datareturn
+                    if(data.hour >= key1[0] && data.hour <= key1[1])
+                        return data
+                })
+                console.log("crime", crime)
+                this.temp = []
+                this.temp = crime
+                this.flag = 1
+                // this.$set(this.crimerecords,crime)
+                console.log("this.temp", this.temp)
+            },
+            sortByHour(Obj1,Obj2){
+                let val1 = Obj1.hour
+                let val2 = Obj2.hour
+                return val1 - val2
             }
         },
         created() {
-            db.collection('crimeRecord').limit(10).get().then(querySnapshot => {
+            db.collection('crimeRecord').limit(50).get().then(querySnapshot => {
                 querySnapshot.forEach(doc =>{
                     console.log(doc.data())
                     const data ={
@@ -161,6 +191,7 @@
                     }
                     this.crimerecords.push(data)
                 })
+                 this.currentChangePage(this.crimerecords, 1);
             })
         },
         computed: {
@@ -168,15 +199,17 @@
             crimes () {
                 const search = this.search
                 if (search) {
-                    console.log('this.crimerecords', this.crimerecords)
-                    return this.crimerecords.filter(data => {
+                    // console.log('this.crimerecords', this.crimerecords)
+                    return this.pageList.filter(data => {
                         return Object.keys(data).some(key => {
                       return String(data[key]).toLowerCase().indexOf(search) > -1
                   })
               })
           }
-           console.log('this.crimerecords', this.crimerecords)
-          return this.crimerecords
+                if(this.flag == 1)
+                    return this.temp
+           // console.log('this.crimerecords', this.crimerecords)
+           return this.pageList
       }
         }
     }

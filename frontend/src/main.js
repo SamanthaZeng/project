@@ -17,6 +17,10 @@ fontawesome.library.add(solid)
 fontawesome.library.add(regular)
 fontawesome.library.add(brands)
 
+//add vue trend
+import Trend from 'vuetrend'
+Vue.use(Trend)
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(ElementUI, { locale })
