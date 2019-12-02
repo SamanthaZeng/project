@@ -3,6 +3,7 @@
     <el-input placeholder="filter all the data in the table" prefix-icon="el-icon-search" v-model="search"></el-input>
     <i style="float:left;">hour filter</i>
     <el-slider v-model="value1" range show-stops :max="23" @change="carouselChange"></el-slider>
+    <el-input placeholder="filter offense code group" prefix-icon="el-icon-search" v-model="search1"></el-input>
       <el-table :data = "crimes"
                 stripe
                 :default-sort = "{prop: 'dayofweek', order: 'descending'}"
@@ -123,6 +124,7 @@
                 pageList:[],
                 flag: 0,
                 search: '',
+                search1:'',
                 value1: [0, 23],
                 msg:[],
                 data1:[],
@@ -258,6 +260,16 @@
                     return this.pageList.filter(data => {
                         return Object.keys(data).some(key => {
                       return String(data[key]).toLowerCase().indexOf(search) > -1
+                  })
+              })
+          }
+                const search1 = this.search1
+                // console.log("search1",search1)
+                if (search1) {
+                    // console.log('this.crimerecords', this.crimerecords)
+                    return this.pageList.filter(data => {
+                        return Object.keys(data).some(key => {
+                      return String(data[key]).toLowerCase().indexOf(search1) > -1
                   })
               })
           }
