@@ -192,7 +192,7 @@
       }
         },
         created() {
-            db.collection('crimeRecord').limit(3000).get().then(querySnapshot => {
+            db.collection('crimeRecord').limit(30).get().then(querySnapshot => {
                 querySnapshot.forEach(doc =>{
                     console.log(doc.data())
                     const data ={

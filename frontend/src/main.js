@@ -29,6 +29,14 @@ Vue.use(TrendChart);
 import echarts from 'echarts'
 Vue.use(echarts);
 
+//add vue-echarts
+import ECharts from 'vue-echarts'
+import 'echarts/lib/chart/line'
+// import ECharts modules manually to reduce bundle size
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/tooltip'
+Vue.component('chart', ECharts)
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(ElementUI, { locale })
