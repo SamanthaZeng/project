@@ -21,6 +21,14 @@ fontawesome.library.add(brands)
 import Trend from 'vuetrend'
 Vue.use(Trend)
 
+//add vue trend chart
+import TrendChart from "vue-trend-chart";
+Vue.use(TrendChart);
+
+//add echart
+import echarts from 'echarts'
+Vue.use(echarts);
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(ElementUI, { locale })

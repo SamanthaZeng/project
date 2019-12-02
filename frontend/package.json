@@ -15,12 +15,14 @@
     "@fortawesome/fontawesome-free-regular": "^5.0.13",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/vue-fontawesome": "^0.1.8",
+    "echarts": "^4.5.0",
     "element-ui": "^2.12.0",
     "firebase": "^7.2.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-trend-chart": "^0.15.1",
-    "vuetrend": "^0.3.4"
+    "vuetrend": "^0.3.4",
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",

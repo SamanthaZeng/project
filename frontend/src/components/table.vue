@@ -92,6 +92,7 @@
           label="UCR_PART"
           width="180">
         </el-table-column>
+
       </el-table>
   <div class="paginationClass">
     <el-pagination
@@ -104,12 +105,13 @@
     :total="total">
     </el-pagination>
   </div>
+ <button @click="emitEvent">data visualization</button>
   </div>
 </template>
 
 <script>
     import db from './firebaseInit'
-    export default {
+    export default{
         name: "table",
         data() {
             return {
@@ -121,7 +123,24 @@
                 pageList:[],
                 flag: 0,
                 search: '',
-                value1: [0, 23]
+                value1: [0, 23],
+                msg:[],
+                data1:[],
+                data2:[],
+                data3 : [],
+                data4 : [],
+                data5 : [],
+                data6 : [],
+                data7 : [],
+                data8 : [],
+                data9 : [],
+                data10 : [],
+                data11 : [],
+                data12 : [],
+                data13 : [],
+                data14 : [],
+                data15 : [],
+                data16 : [],
             }
         },
         methods: {
@@ -165,10 +184,13 @@
                 let val1 = Obj1.hour
                 let val2 = Obj2.hour
                 return val1 - val2
-            }
+            },
+            emitEvent(){
+                this.$emit('my-event', this.msg)
+      }
         },
         created() {
-            db.collection('crimeRecord').limit(50).get().then(querySnapshot => {
+            db.collection('crimeRecord').limit(30).get().then(querySnapshot => {
                 querySnapshot.forEach(doc =>{
                     console.log(doc.data())
                     const data ={
@@ -189,9 +211,42 @@
                         'ucrpart':doc.data().UCR_PART,
                         'year':doc.data().YEAR,
                     }
+                    this.data1.push(data.dayofweek)
+                    this.data2.push(data.district)
+                    this.data3.push(data.hour)
+                    this.data4.push(data.lat)
+                    this.data5.push(data.location)
+                    this.data6.push(data.long)
+                    this.data7.push(data.month)
+                    this.data8.push(data.occurdate)
+                    this.data9.push(data.offcode)
+                    this.data10.push(data.offcodegroup)
+                    this.data11.push(data.offdes)
+                    this.data12.push(data.reportarea)
+                    this.data13.push(data.shooting)
+                    this.data14.push(data.street)
+                    this.data15.push(data.ucrpart)
+                    this.data16.push(data.year)
                     this.crimerecords.push(data)
                 })
-                 this.currentChangePage(this.crimerecords, 1);
+                this.msg.push(this.data1)
+                this.msg.push(this.data2)
+                this.msg.push(this.data3)
+                this.msg.push(this.data4)
+                this.msg.push(this.data5)
+                this.msg.push(this.data6)
+                this.msg.push(this.data7)
+                this.msg.push(this.data8)
+                this.msg.push(this.data9)
+                this.msg.push(this.data10)
+                this.msg.push(this.data11)
+                this.msg.push(this.data12)
+                this.msg.push(this.data13)
+                this.msg.push(this.data14)
+                this.msg.push(this.data15)
+                this.msg.push(this.data16)
+                console.log("msg",this.msg)
+                this.currentChangePage(this.crimerecords, 1);
             })
         },
         computed: {
