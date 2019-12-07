@@ -3,7 +3,7 @@
     <el-input placeholder="filter all the data in the table" prefix-icon="el-icon-search" v-model="search"></el-input>
     <i style="float:left;">hour filter</i>
     <el-slider v-model="value1" range show-stops :max="23" @change="carouselChange"></el-slider>
-    <el-input placeholder="filter offense code group" prefix-icon="el-icon-search" v-model="search1"></el-input>
+    <el-input placeholder="filter street name" prefix-icon="el-icon-search" v-model="search1"></el-input>
       <el-table :data = "crimes"
                 stripe
                 :default-sort = "{prop: 'dayofweek', order: 'descending'}"
@@ -59,8 +59,6 @@
         <el-table-column
           prop="offcode"
           label="OFFENSE_CODE"
-          sortable
-          :sort-method = "sortByHour"
           width="180">
         </el-table-column>
         <el-table-column
@@ -192,7 +190,7 @@
       }
         },
         created() {
-            db.collection('crimeRecord').limit(30).get().then(querySnapshot => {
+            db.collection('crimeRecord').limit(3000).get().then(querySnapshot => {
                 querySnapshot.forEach(doc =>{
                     console.log(doc.data())
                     const data ={
